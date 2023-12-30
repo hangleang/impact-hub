@@ -12,11 +12,10 @@ export const env = createEnv({
       .url()
       .refine(
         (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
-        "You forgot to change the default URL"
+        "You forgot to change the default URL",
       ),
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+    NODE_ENV: z.enum(["dev", "test", "production"]).default("dev"),
+    PINATA_JWT: z.string(),
   },
 
   /**
@@ -25,7 +24,18 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_SPEC_GRAPHQL: z
+      .string()
+      .url()
+      .refine(
+        (str) => !str.includes("YOUR_SPEC_GRAPHQL_URL_HERE"),
+        "You forgot to change the default URL",
+      ),
+    NEXT_PUBLIC_IPFS_WRITE_GATEWAY: z.string().url(),
+    NEXT_PUBLIC_IPFS_READ_GATEWAY: z.string().url(),
+    NEXT_PUBLIC_INFURA_ID: z.string(),
+    NEXT_PUBLIC_ALCHEMY_ID: z.string(),
+    NEXT_PUBLIC_PROJECT_ID: z.string(),
   },
 
   /**
@@ -35,7 +45,13 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    PINATA_JWT: process.env.PINATA_JWT,
+    NEXT_PUBLIC_SPEC_GRAPHQL: process.env.NEXT_PUBLIC_SPEC_GRAPHQL,
+    NEXT_PUBLIC_IPFS_READ_GATEWAY: process.env.NEXT_PUBLIC_IPFS_READ_GATEWAY,
+    NEXT_PUBLIC_IPFS_WRITE_GATEWAY: process.env.NEXT_PUBLIC_IPFS_WRITE_GATEWAY,
+    NEXT_PUBLIC_INFURA_ID: process.env.NEXT_PUBLIC_INFURA_ID,
+    NEXT_PUBLIC_ALCHEMY_ID: process.env.NEXT_PUBLIC_ALCHEMY_ID,
+    NEXT_PUBLIC_PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
