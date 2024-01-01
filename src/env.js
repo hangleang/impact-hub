@@ -14,9 +14,6 @@ export const env = createEnv({
         (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
         "You forgot to change the default URL",
       ),
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
     PINATA_JWT: z.string(),
   },
 
@@ -26,6 +23,9 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_ENV: z
+      .enum(["development", "test", "production"])
+      .default("development"),
     NEXT_PUBLIC_SPEC_GRAPHQL: z
       .string()
       .url()
@@ -46,7 +46,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
-    NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV,
     PINATA_JWT: process.env.PINATA_JWT,
     NEXT_PUBLIC_SPEC_GRAPHQL: process.env.NEXT_PUBLIC_SPEC_GRAPHQL,
     NEXT_PUBLIC_IPFS_READ_GATEWAY: process.env.NEXT_PUBLIC_IPFS_READ_GATEWAY,
