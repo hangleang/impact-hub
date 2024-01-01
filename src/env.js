@@ -14,7 +14,9 @@ export const env = createEnv({
         (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
         "You forgot to change the default URL",
       ),
-    NODE_ENV: z.enum(["dev", "test", "production"]).default("dev"),
+    NODE_ENV: z
+      .enum(["development", "test", "production"])
+      .default("development"),
     PINATA_JWT: z.string(),
   },
 
