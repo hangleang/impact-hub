@@ -4,12 +4,16 @@ import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig } from "wagmi";
 import {
   arbitrum,
+  arbitrumSepolia,
   base,
   celo,
+  celoAlfajores,
   goerli,
   mainnet,
   optimism,
   polygon,
+  polygonMumbai,
+  sepolia,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -19,16 +23,16 @@ import { env } from "@/env";
 
 const stagingChains = [
   // celoAlfajores,
-  goerli,
+  // goerli,
   // sepolia,
   // polygonMumbai,
-  // arbitrumGoerli,
+  arbitrumSepolia,
 ];
 
 const productionChains = [arbitrum, base, celo, mainnet, polygon, optimism];
 
 const availableChains =
-  env.NODE_ENV === "development" ? stagingChains : productionChains;
+  env.NEXT_PUBLIC_ENV === "development" ? stagingChains : productionChains;
 
 const { chains, publicClient } = configureChains(
   [...availableChains],
@@ -49,7 +53,7 @@ const { connectors } = getDefaultWallets({
   chains,
 });
 
-export const wagmiConfigData = createConfig({
+export const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
   publicClient,

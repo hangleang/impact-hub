@@ -1,9 +1,16 @@
+// css
 import "@/styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
+import { WagmiConfig } from "wagmi";
+
 import { TRPCReactProvider } from "@/services/trpc/react";
+import { chainData, wagmiConfig } from "@/services/wagmi";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import Navbar from "@/components/shared/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,9 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
-        </TRPCReactProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chainData}>
+            <TRPCReactProvider cookies={cookies().toString()}>
+              <Navbar />
+              <main className="mt-8 px-6 md:px-0">{children}</main>
+            </TRPCReactProvider>
+          </RainbowKitProvider>
+        </WagmiConfig>
       </body>
     </html>
   );
