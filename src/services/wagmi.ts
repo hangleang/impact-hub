@@ -8,7 +8,6 @@ import {
   base,
   celo,
   celoAlfajores,
-  goerli,
   mainnet,
   optimism,
   polygon,
@@ -21,13 +20,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { infuraProvider } from "wagmi/providers/infura";
 import { env } from "@/env";
 
-const stagingChains = [
-  // celoAlfajores,
-  // goerli,
-  // sepolia,
-  // polygonMumbai,
-  arbitrumSepolia,
-];
+const stagingChains = [celoAlfajores, sepolia, polygonMumbai, arbitrumSepolia];
 
 const productionChains = [arbitrum, base, celo, mainnet, polygon, optimism];
 
